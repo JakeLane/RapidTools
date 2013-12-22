@@ -1,0 +1,86 @@
+name: RapidTools
+main: me.jakelane.rapidtools.RapidTools
+version: 1.1
+author: Jake Lane
+
+commands:
+   setspawn:
+      description: Sets the spawn point.
+      usage: /setspawn
+      permission: rapidtools.setspawn
+      permission-message: You don't have permission to do that. Haha.
+   spawn:
+      description: Teleports you to the spawn point
+      usage: /spawn (world)
+      permission: rapidtools.spawn
+      permission-message: You don't have permission to do that. Haha.
+   ping:
+      description: Returns your ping.
+      usage: /ping
+      permission: rapidtools.ping
+      permission-message: You don't have permission to do that. Haha.
+   events:
+      description: Returns current events from Rapidcraftmc.com.
+      usage: /events
+      permission: rapidtools.events
+      permission-message: You don't have permission to do that. Haha.
+   timezone:
+      description: Sets your timezone
+      usage: /timezone [timezone]
+      permission: rapidtools.timezone
+      permission-message: You don't have permission to do that. Haha.
+   afk:
+      description: Sets/unsets afk status
+      usage: /afk
+      permission: rapidtools.afk
+      permission-message: You don't have permission to do that. Haha.
+   aup:
+      description: Updates the announcements from the website.
+      usage: /aup
+      permission: rapidtools.aup
+      permission-message: You don't have permission to do that. Haha.
+   pranks:
+      description: Allows you to set your pranks status and list the members.
+      usage: /pranks (enable|disable|list)
+      permission: rapidtools.pranks
+      permission-message: You don't have permission to do that. Haha.
+   fwa:
+      description: Allows you to enable/disable firework arrows.
+      usage: /fwa (enable|disable)
+      permission: rapidtools.fireworkarrows
+      permission-message: You must be a donator to do that
+      
+permissions:
+    rapidtools.*:
+        description: Gives access to all commands
+        children:
+            rapidtools.setspawn: true
+            rapidtools.ping: true
+            rapidtools.spawn: true
+    rapidtools.setspawn:
+        description: Allows you to set spawn to your location.
+        default: op
+    rapidtools.spawn:
+        description: Teleports you to the spawn point.
+        default: op
+    rapidtools.ping:
+        description: Returns your ping.
+        default: op
+    rapidtools.events:
+        description: Returns current events from Rapidcraftmc.com.
+        default: op
+    rapidtools.timezone:
+        description: Sets your timezone
+        default: op
+    rapidtools.afk:
+        description: Sets/unsets afk status
+        default: op
+    rapidtools.aup:
+        description: Updates the announcements from the website.
+        default: op
+    rapidtools.pranks:
+        description: Allows people to use the prank command
+        default: op
+    rapidtools.fireworkarrows:
+        description: Allows you to enable/disable firework arrows.
+        default: op
