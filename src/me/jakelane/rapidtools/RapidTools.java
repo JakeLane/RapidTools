@@ -94,9 +94,9 @@ public final class RapidTools extends JavaPlugin implements Listener {
 		Player[] list = Bukkit.getOnlinePlayers();
 		for (String word : ChatColor.stripColor(event.getMessage()).toLowerCase().split("[./;-`~()\\[\\]{}+ ]")) {
 			for (Player p : list) {
-				String colon = p.getName().toLowerCase() + ":";
-				String comma = p.getName().toLowerCase() + ",";
 				String user = p.getName().toLowerCase();
+				String colon = user + ":";
+				String comma = user + ",";
 				if (colon.equals(word) || comma.equals(word) || user.equals(word)) {
 					if (p.getMetadata("afk").get(0).asBoolean()) {
 						event.getPlayer().sendMessage(ChatColor.YELLOW + p.getName() + " is AFK.");
