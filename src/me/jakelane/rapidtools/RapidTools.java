@@ -96,7 +96,8 @@ public final class RapidTools extends JavaPlugin implements Listener {
 			for (Player p : list) {
 				String colon = p.getName().toLowerCase() + ":";
 				String comma = p.getName().toLowerCase() + ",";
-				if (colon.equals(word) || comma.equals(word)) {
+				String user = p.getName().toLowerCase();
+				if (colon.equals(word) || comma.equals(word) || user.equals(word)) {
 					if (p.getMetadata("afk").get(0).asBoolean()) {
 						event.getPlayer().sendMessage(ChatColor.YELLOW + p.getName() + " is AFK.");
 					}
@@ -121,7 +122,7 @@ public final class RapidTools extends JavaPlugin implements Listener {
 		Boolean playerFireworkArrows = getConfig().getBoolean(player.getDisplayName() + ".FireworkArrows");
 		player.setMetadata("FireworkArrows", new FixedMetadataValue(this, playerFireworkArrows));
 	}
-	
+
 	// Word wrapper
 	public static String[] wordWrap(String toBeWrapped) {
 		return ChatPaginator.wordWrap(toBeWrapped, ChatPaginator.GUARANTEED_NO_WRAP_CHAT_PAGE_WIDTH);

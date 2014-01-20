@@ -58,8 +58,7 @@ public class RapidPranks implements Runnable {
 					BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 					writer.close();
 					reader.close();
-					RapidPranksExecutor.getSender().sendMessage(
-							ChatColor.YELLOW + "You are now on the prank list! Make sure sure you read the rules.");
+					RapidPranksExecutor.getSender().sendMessage(ChatColor.YELLOW + "You are now on the prank list! Make sure sure you read the rules.");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -120,7 +119,7 @@ public class RapidPranks implements Runnable {
 					}
 
 					// Print that shit
-					RapidPranksExecutor.getSender().sendMessage(RapidTools.wordWrap(listAsCSV(prankMembers)));
+					RapidPranksExecutor.getSender().sendMessage(RapidTools.wordWrap(ChatColor.YELLOW + listAsCSV(prankMembers)));
 					kill();
 				} catch (Exception e) {
 					System.out.println("Error: " + e.getMessage());

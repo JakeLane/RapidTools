@@ -27,12 +27,12 @@ public class RapidFireworkArrowsExecutor implements CommandExecutor {
 				// Check if player has permissions
 				if (player.hasPermission("rapidtools.fwa")) {
 					if (args.length == 1 && args[0].equalsIgnoreCase("enable")) {
-						// Get the config
+						// Get the configuration
 						Boolean playerFireworkArrows = player.getMetadata("FireworkArrows").get(0).asBoolean();
 						if (!playerFireworkArrows) {
 							// Set the metadata
 							player.setMetadata("FireworkArrows", new FixedMetadataValue(plugin, "true"));
-							// Set the config
+							// Set the configuration
 							plugin.getConfig().set(player.getDisplayName() + ".FireworkArrows", true);
 							plugin.saveConfig();
 							sender.sendMessage(ChatColor.YELLOW + "Firework Arrows enabled.");
@@ -40,7 +40,7 @@ public class RapidFireworkArrowsExecutor implements CommandExecutor {
 							sender.sendMessage(ChatColor.YELLOW + "Firework Arrows are already enabled.");
 						}
 					} else if (args.length == 1 && args[0].equalsIgnoreCase("disable")) {
-						// Get the config
+						// Get the configuration
 						Boolean playerFireworkArrows = player.getMetadata("FireworkArrows").get(0).asBoolean();
 						if (playerFireworkArrows) {
 							// Set the metadata
