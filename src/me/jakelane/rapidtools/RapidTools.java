@@ -42,7 +42,7 @@ public final class RapidTools extends JavaPlugin implements Listener {
 		// Register events
 		getServer().getPluginManager().registerEvents(this, this);
 		getServer().getPluginManager().registerEvents(new RapidAfk(this), this);
-		getServer().getPluginManager().registerEvents(new RapidFireworkArrowsListener(), this);
+		getServer().getPluginManager().registerEvents(new RapidFireworkArrowsListener(this), this);
 		// Executor for Ping
 		getCommand("ping").setExecutor(new RapidPing(this));
 		// Executor for SetSpawn

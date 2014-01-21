@@ -6,17 +6,25 @@ import java.util.Random;
 
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
+import org.bukkit.Location;
 import org.bukkit.FireworkEffect.Type;
 import org.bukkit.entity.Arrow;
+import org.bukkit.entity.Firework;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.inventory.meta.FireworkMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class RapidFireworkArrowsListener implements Listener {
 
-	FireworkEffectPlayer fplayer = new FireworkEffectPlayer();
+	private RapidTools plugin;
+
+	public RapidFireworkArrowsListener(RapidTools plugin) {
+		this.plugin = plugin;
+	}
 
 	@EventHandler
 	public void onProjectileHitEvent(ProjectileHitEvent event) {
@@ -27,13 +35,26 @@ public class RapidFireworkArrowsListener implements Listener {
 				Player player = (Player) shooter;
 				if (player.getMetadata("FireworkArrows").get(0).asBoolean()) {
 					try {
-						fplayer.playFirework(arrow.getWorld(), arrow.getLocation(), getEffect());
+						playFirework(arrow.getLocation());
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
 			}
 		}
+	}
+
+	public void playFirework(Location location) {
+		final Firework firework = location.getWorld().spawn(location, Firework.class);
+		FireworkMeta fMeta = firework.getFireworkMeta();
+		fMeta.addEffect(getEffect());
+		firework.setFireworkMeta(fMeta);
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				firework.detonate();
+			}
+		}.runTaskLater(plugin, 1);
 	}
 
 	public static FireworkEffect getEffect() {
