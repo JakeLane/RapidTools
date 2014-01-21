@@ -14,7 +14,7 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitScheduler;
+import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.ChatPaginator;
 
 /**
@@ -62,14 +62,13 @@ public final class RapidTools extends JavaPlugin implements Listener {
 		getCommand("fwa").setExecutor(new RapidFireworkArrowsExecutor(this));
 		// Executor for AnnounceUpdater
 		getCommand("aup").setExecutor(new RapidAnnounceExecutor(this));
-		// Add recipies
+		// Add recipes
 		addRecipe();
-		// Setup Scheduler
-		BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
 		// Schedule Announcement updater for defined update time (starts at 15
 		// seconds)
 		long announceUpdateTime = getConfig().getInt("AnnounceUpdateTime") * 20;
-		scheduler.scheduleSyncRepeatingTask(this, new RapidAnnounceUpdater(this), 20L, announceUpdateTime);
+		@SuppressWarnings("unused")
+		BukkitTask task = new RapidAnnounceUpdater(this).runTaskTimer(this, 10, announceUpdateTime);
 		// Echo the enable
 		getLogger().info(pdFile.getName() + " version " + pdFile.getVersion() + " enabled");
 	}

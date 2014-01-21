@@ -8,12 +8,14 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.bukkit.Bukkit;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class RapidAnnounceUpdater implements Runnable {
+public class RapidAnnounceUpdater extends BukkitRunnable {
 
 	private RapidTools plugin;
 
@@ -54,8 +56,7 @@ public class RapidAnnounceUpdater implements Runnable {
 			e.printStackTrace();
 		}
 		// Execute the creator (DUNDUNDUN!)
-		RapidAnnounce r1 = new RapidAnnounce(plugin);
-		Thread t1 = new Thread(r1);
-		t1.start();
+		@SuppressWarnings("unused")
+		BukkitTask task = new RapidAnnounce(this.plugin).runTaskLater(this.plugin, 20);
 	}
 }

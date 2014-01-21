@@ -33,10 +33,11 @@ public class RapidPing implements CommandExecutor {
 						boolean status = InetAddress.getByName(host).isReachable(2500);
 						long elapsed = System.currentTimeMillis() - curTime - 1000L;
 						if (elapsed <= 0L) elapsed = 0L;
-						if (status)
+						if (status) {
 							sender.sendMessage("Your ping is: " + elapsed + "ms.");
-						else
+						} else {
 							sender.sendMessage("Could not contact server!");
+						}
 					} catch (Exception ex) {
 						plugin.getLogger().info("Error: " + ex);
 					}
