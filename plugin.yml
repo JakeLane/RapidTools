@@ -1,6 +1,6 @@
 name: RapidTools
 main: me.jakelane.rapidtools.RapidTools
-version: 1.1
+version: 1.2
 author: Jake Lane
 
 commands:
@@ -83,4 +83,7 @@ permissions:
         default: op
     rapidtools.fireworkarrows:
         description: Allows you to enable/disable firework arrows.
+        default: op
+    rapidtools.playersaddle:
+        description: Allows you access protected horses.
         default: op

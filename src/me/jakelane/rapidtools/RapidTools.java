@@ -3,12 +3,14 @@ package me.jakelane.rapidtools;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -41,6 +43,7 @@ public final class RapidTools extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(this, this);
 		getServer().getPluginManager().registerEvents(new RapidAfk(this), this);
 		getServer().getPluginManager().registerEvents(new RapidFireworkArrowsListener(this), this);
+		getServer().getPluginManager().registerEvents(new RapidHorseOwner(this), this);
 		// Executor for Ping
 		getCommand("ping").setExecutor(new RapidPing(this));
 		// Executor for SetSpawn
@@ -59,6 +62,8 @@ public final class RapidTools extends JavaPlugin implements Listener {
 		getCommand("fwa").setExecutor(new RapidFireworkArrowsExecutor(this));
 		// Executor for AnnounceUpdater
 		getCommand("aup").setExecutor(new RapidAnnounceExecutor(this));
+		// Add recipies
+		addRecipe();
 		// Setup Scheduler
 		BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
 		// Schedule Announcement updater for defined update time (starts at 15
@@ -120,5 +125,15 @@ public final class RapidTools extends JavaPlugin implements Listener {
 	// Word wrapper
 	public static String[] wordWrap(String toBeWrapped) {
 		return ChatPaginator.wordWrap(toBeWrapped, ChatPaginator.GUARANTEED_NO_WRAP_CHAT_PAGE_WIDTH);
+	}
+
+	// Recipe creator
+	public void addRecipe() {
+		// OwnerSaddle item
+		ShapedRecipe recipe = new ShapedRecipe(RapidHorseOwner.getOwnerSaddleItemStack());
+		recipe.shape(new String[] { "SD" });
+		recipe.setIngredient('S', Material.SADDLE);
+		recipe.setIngredient('D', Material.IRON_INGOT);
+		Bukkit.addRecipe(recipe);
 	}
 }
