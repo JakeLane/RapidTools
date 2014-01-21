@@ -6,10 +6,8 @@ import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -76,18 +74,6 @@ public final class RapidTools extends JavaPlugin implements Listener {
 		getLogger().info(pdFile.getName() + " version " + pdFile.getVersion() + " disabled");
 	}
 
-	@EventHandler(priority = EventPriority.HIGHEST)
-	// Player join event
-	public void onPlayerJoinEvent(PlayerJoinEvent event) {
-		String joinMessage = getConfig().getString("JoinMessage");
-		event.getPlayer().sendMessage(ChatColor.GOLD + joinMessage);
-		// If player has not joined before
-		if (!event.getPlayer().hasPlayedBefore()) {
-			String newPlayerName = event.getPlayer().getDisplayName();
-			Bukkit.broadcastMessage(ChatColor.GOLD + "Welcome " + newPlayerName + " to the server!");
-		}
-	}
-
 	@EventHandler
 	// Player chat event
 	public void onPlayerChat(final AsyncPlayerChatEvent event) {
@@ -121,6 +107,14 @@ public final class RapidTools extends JavaPlugin implements Listener {
 		saveConfig();
 		Boolean playerFireworkArrows = getConfig().getBoolean(player.getDisplayName() + ".FireworkArrows");
 		player.setMetadata("FireworkArrows", new FixedMetadataValue(this, playerFireworkArrows));
+		// Join message
+		String joinMessage = getConfig().getString("JoinMessage");
+		event.getPlayer().sendMessage(ChatColor.GOLD + joinMessage);
+		// If player has not joined before
+		if (!event.getPlayer().hasPlayedBefore()) {
+			String newPlayerName = event.getPlayer().getDisplayName();
+			Bukkit.broadcastMessage(ChatColor.GOLD + "Welcome " + newPlayerName + " to the server!");
+		}
 	}
 
 	// Word wrapper
