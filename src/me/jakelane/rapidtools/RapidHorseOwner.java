@@ -9,9 +9,8 @@ import org.bukkit.entity.Horse;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
+import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.vehicle.VehicleEnterEvent;
 import org.bukkit.inventory.HorseInventory;
 import org.bukkit.inventory.ItemStack;
@@ -26,11 +25,22 @@ public class RapidHorseOwner implements Listener {
 		ItemStack is = new ItemStack(Material.SADDLE, 1);
 		ItemMeta im = is.getItemMeta();
 		im.setDisplayName("Personal Saddle");
-		ArrayList<String> lore = new ArrayList<String>();
-		lore.add("Right click to bind this saddle to you!");
-		im.setLore(lore);
 		is.setItemMeta(im);
 		return is;
+	}
+
+	@EventHandler
+	public void onItemCraft(CraftItemEvent event) {
+		// Make sure is owners saddle
+		if (event.getInventory().getResult().getType() == Material.SADDLE && checkOwnerSaddle(event.getInventory().getResult())) {
+			// Make it an owner saddle
+			Player crafter = (Player) event.getWhoClicked();
+			ArrayList<String> lore = new ArrayList<String>();
+			lore.add(crafter.getName());
+			ItemMeta im = event.getInventory().getResult().getItemMeta();
+			im.setLore(lore);
+			event.getInventory().getResult().setItemMeta(im);
+		}
 	}
 
 	@EventHandler
@@ -54,32 +64,6 @@ public class RapidHorseOwner implements Listener {
 				}
 				e.setCancelled(true);
 				p.sendMessage(ChatColor.RED + "This is " + getSaddleOwnername(p, h.getInventory().getSaddle()) + "'s horse.");
-			}
-		}
-	}
-
-	@SuppressWarnings("deprecation")
-	@EventHandler
-	public void onPlayeruseItem(PlayerInteractEvent e) {
-		// Use an item
-		if ((e.getPlayer() instanceof Player)) {
-			Player p = e.getPlayer();
-
-			if (e.getPlayer().getItemInHand() != null) {
-				if (e.getPlayer().getItemInHand().getType().equals(Material.SADDLE)) {
-					if (e.getAction().equals(Action.RIGHT_CLICK_AIR)) {
-						if (checkOwnerSaddle(e.getPlayer().getItemInHand())) {
-							ArrayList<String> lore = new ArrayList<String>();
-							lore.add(p.getName());
-							ItemMeta im = p.getItemInHand().getItemMeta();
-							im.setLore(lore);
-							p.getItemInHand().setItemMeta(im);
-							p.updateInventory();
-							p.sendMessage(ChatColor.GREEN + "This saddle is now owned by " + p.getName() + "!");
-							return;
-						}
-					}
-				}
 			}
 		}
 	}
