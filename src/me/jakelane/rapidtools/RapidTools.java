@@ -7,8 +7,10 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -111,7 +113,11 @@ public final class RapidTools extends JavaPlugin implements Listener {
 		saveConfig();
 		Boolean playerFireworkArrows = getConfig().getBoolean(player.getDisplayName() + ".FireworkArrows");
 		player.setMetadata("FireworkArrows", new FixedMetadataValue(this, playerFireworkArrows));
-		// Join message
+	}
+	
+	@EventHandler(priority = EventPriority.HIGHEST)
+	// Player join event
+	public void onPlayerJoinEvent(PlayerJoinEvent event) {
 		String joinMessage = getConfig().getString("JoinMessage");
 		event.getPlayer().sendMessage(ChatColor.GOLD + joinMessage);
 		// If player has not joined before

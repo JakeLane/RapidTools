@@ -1,6 +1,6 @@
 name: RapidTools
 main: me.jakelane.rapidtools.RapidTools
-version: 1.2.1
+version: 1.2.2
 author: Jake Lane
 
 commands:
