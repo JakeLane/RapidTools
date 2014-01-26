@@ -41,11 +41,12 @@ public final class RapidTools extends JavaPlugin implements Listener {
 		PluginDescriptionFile pdFile = this.getDescription();
 		// Load config
 		loadConfiguration();
-		// Register events
+		// Register eventsl
 		getServer().getPluginManager().registerEvents(this, this);
 		getServer().getPluginManager().registerEvents(new RapidAfk(this), this);
 		getServer().getPluginManager().registerEvents(new RapidFireworkArrowsListener(this), this);
 		getServer().getPluginManager().registerEvents(new RapidHorseOwner(this), this);
+		getServer().getPluginManager().registerEvents(new RapidSetSpawn(this), this);
 		// Executor for Ping
 		getCommand("ping").setExecutor(new RapidPing(this));
 		// Executor for SetSpawn
@@ -70,7 +71,7 @@ public final class RapidTools extends JavaPlugin implements Listener {
 		// seconds)
 		long announceUpdateTime = getConfig().getInt("AnnounceUpdateTime") * 20;
 		@SuppressWarnings("unused")
-		BukkitTask task = new RapidAnnounceUpdater(this).runTaskTimer(this, 10, announceUpdateTime);
+		BukkitTask task = new RapidAnnounceUpdater(this).runTaskTimerAsynchronously(this, 10, announceUpdateTime);
 		// Echo the enable
 		getLogger().info(pdFile.getName() + " version " + pdFile.getVersion() + " enabled");
 	}
@@ -114,7 +115,7 @@ public final class RapidTools extends JavaPlugin implements Listener {
 		Boolean playerFireworkArrows = getConfig().getBoolean(player.getDisplayName() + ".FireworkArrows");
 		player.setMetadata("FireworkArrows", new FixedMetadataValue(this, playerFireworkArrows));
 	}
-	
+
 	@EventHandler(priority = EventPriority.HIGHEST)
 	// Player join event
 	public void onPlayerJoinEvent(PlayerJoinEvent event) {

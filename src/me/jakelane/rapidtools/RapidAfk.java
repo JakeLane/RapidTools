@@ -30,7 +30,10 @@ public class RapidAfk implements CommandExecutor, Listener {
 				if (player.hasPermission("rapidtools.afk")) {
 					Boolean afk = player.getMetadata("afk").get(0).asBoolean();
 					if (!afk) {
-						player.setPlayerListName(ChatColor.GRAY + "" + ChatColor.ITALIC + player.getDisplayName());
+						String playerListName = ChatColor.ITALIC + player.getDisplayName();
+						if(playerListName.length() > 15)
+							playerListName = playerListName.substring(0, 15);
+						player.setPlayerListName(playerListName);
 						player.setMetadata("afk", new FixedMetadataValue(plugin, Boolean.valueOf(true)));
 						Bukkit.broadcastMessage(player.getDisplayName() + " is now AFK.");
 					}

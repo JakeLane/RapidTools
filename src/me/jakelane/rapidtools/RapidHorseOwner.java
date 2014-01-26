@@ -17,7 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class RapidHorseOwner implements Listener {
-	public RapidHorseOwner(RapidTools rapidTools) {
+	public RapidHorseOwner(RapidTools plugin) {
 	}
 
 	public static ItemStack getOwnerSaddleItemStack() {

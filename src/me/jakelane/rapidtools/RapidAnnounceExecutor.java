@@ -18,7 +18,7 @@ public class RapidAnnounceExecutor implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		// Spawn command
+		// Update command command
 		if (cmd.getName().equalsIgnoreCase("aup")) {
 			if (!(sender instanceof Player)) {
 				sender.sendMessage("This command can only be run by a player.");
@@ -30,9 +30,10 @@ public class RapidAnnounceExecutor implements CommandExecutor {
 					@SuppressWarnings("unused")
 					BukkitTask task = new RapidAnnounceUpdater(this.plugin).runTaskLaterAsynchronously(this.plugin, 20);
 					Bukkit.broadcastMessage(ChatColor.YELLOW + "Announcement list updated.");
+					return true;
 				}
 			}
 		}
-		return true;
+	return false;
 	}
 }
