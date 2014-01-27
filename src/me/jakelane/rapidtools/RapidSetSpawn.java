@@ -1,7 +1,6 @@
 package me.jakelane.rapidtools;
 
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -28,10 +27,12 @@ public class RapidSetSpawn implements CommandExecutor, Listener {
 				Player player = (Player) sender;
 				// Set spawn if player has permissions
 				if (player.hasPermission("rapidtools.setspawn")) {
-					World world = player.getWorld();
 					Location loc = player.getLocation();
-					world.setSpawnLocation(loc.getBlockX(), loc.getBlockY(), loc.getBlockZ());
-					sender.sendMessage("Teleported to spawn.");
+			        int x = loc.getBlockX();
+			        int y = loc.getBlockY();
+			        int z = loc.getBlockZ();
+			        player.getWorld().setSpawnLocation(x, y, z);
+					sender.sendMessage("Spawn location set.");
 				}
 			}
 			return true;

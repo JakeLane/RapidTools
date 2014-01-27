@@ -13,7 +13,6 @@ import org.bukkit.entity.Firework;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.inventory.meta.FireworkMeta;
@@ -27,20 +26,19 @@ public class RapidFireworkArrowsListener implements Listener {
 		this.plugin = plugin;
 	}
 
-	@EventHandler(priority = EventPriority.HIGHEST)
+	@EventHandler
 	public void onProjectileHitEvent(ProjectileHitEvent event) {
 		if (event.getEntity() instanceof Arrow) {
 			Arrow arrow = (Arrow) event.getEntity();
 			LivingEntity shooter = arrow.getShooter();
-			if ((shooter instanceof Player)) {
-				Player player = (Player) shooter;
-				if (player.getMetadata("FireworkArrows").get(0).asBoolean()) {
-					try {
-						playFirework(arrow.getLocation());
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
+			Player player = (Player) shooter;
+			if (shooter instanceof Player && player.getMetadata("FireworkArrows").get(0).asBoolean()) {
+				try {
+					playFirework(arrow.getLocation());
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
+
 			}
 		}
 	}

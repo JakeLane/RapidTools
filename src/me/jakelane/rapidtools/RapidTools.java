@@ -12,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -30,6 +31,7 @@ public final class RapidTools extends JavaPlugin implements Listener {
 		getConfig().addDefault("ApiURL", "http://rapidcraftmc.com/api.php");
 		getConfig().addDefault("JoinMessage", "Hello, and welcome to the RapidCraft server!");
 		getConfig().addDefault("AnnounceUpdateTime", 600);
+		getConfig().addDefault("ExactSpawn", true);
 		getConfig().options().copyDefaults(true);
 		getConfig().set("AnnouncementScheduled", null);
 		getConfig().set("Announcement", null);
@@ -141,5 +143,14 @@ public final class RapidTools extends JavaPlugin implements Listener {
 		recipe.setIngredient('S', Material.SADDLE);
 		recipe.setIngredient('D', Material.IRON_INGOT);
 		Bukkit.addRecipe(recipe);
+	}
+
+	// Teleport player to exact spawn point
+	@EventHandler
+	public void onPlayerRespawn(PlayerRespawnEvent event) {
+		if (getConfig().getBoolean("ExactSpawn")) {
+			Location location = event.getPlayer().getWorld().getSpawnLocation();
+			event.getPlayer().teleport(new Location(location.getWorld(), location.getBlockX() + 0.5, location.getBlockY(), location.getBlockX() + 0.5));
+		}
 	}
 }
