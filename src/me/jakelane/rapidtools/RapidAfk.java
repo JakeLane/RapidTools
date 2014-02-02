@@ -30,7 +30,7 @@ public class RapidAfk implements CommandExecutor, Listener {
 				if (player.hasPermission("rapidtools.afk")) {
 					Boolean afk = player.getMetadata("afk").get(0).asBoolean();
 					if (!afk) {
-						String playerListName = ChatColor.ITALIC + player.getDisplayName();
+						String playerListName = ChatColor.GRAY + player.getDisplayName();
 						if(playerListName.length() > 15)
 							playerListName = playerListName.substring(0, 15);
 						player.setPlayerListName(playerListName);

@@ -57,6 +57,13 @@ permissions:
             rapidtools.setspawn: true
             rapidtools.ping: true
             rapidtools.spawn: true
+            rapidtools.events: true
+            rapidtools.timezone: true
+            rapidtools.afk: true
+            rapidtools.aup: true
+            rapidtools.pranks: true
+            rapidtools.fireworkarrows: true
+            rapidtools.playersaddle: true
     rapidtools.setspawn:
         description: Allows you to set spawn to your location.
         default: op
